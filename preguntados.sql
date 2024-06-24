@@ -345,4 +345,4 @@ INSERT INTO Respuesta (respuesta, pregunta_id, correcta) VALUES
     (1, 20, 21, 1, 3);
 
     INSERT INTO Jugador(respuestas_correctas, respuestas_incorrectas, total_respuestas, nivel_id, usuario_id) VALUES
-    (20, 1, 21, 1, 4);
+    (20, 1, 21, 3, 4);
