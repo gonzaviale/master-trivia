@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregunta y Respuestas</title>
+</head>
+<body>
+    <div id="timer">01:00</div>
+    {{#pregunta}}
+    <h1 class="titlequestion">{{pregunta}}</h1>
+    <div class="boxquestions">
+        {{#respuestas}}
+        <a class="questionbuttons" href="/partida/procesarRespuesta/respuesta={{id}}" id="respuesta_{{id}}"> {{respuesta}} </a>
+        {{/respuestas}}
+    </div>
+    <br><br><br><br>
+    <div class="contenedorReportarBoton">
+        <a class="bottonA" href="/partida/reportarPregunta/idPregunta={{id}}">Reportar pregunta</a>
+    </div>
+    {{/pregunta}}
+    <script src="/public/timer.js?v=1.0.1"></script>
+</body>
+</html>

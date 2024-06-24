@@ -1,0 +1,14 @@
+{
+    "name": "admin/preguntados",
+    "description": "composer",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "beta",
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "mitoteam/jpgraph": "^10.4",
+        "dompdf/dompdf": "^3.0",
+        "chillerlan/php-qrcode": "^5.0",
+        "endroid/qr-code": "^5.0"
+    }
+}

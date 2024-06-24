@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modificar preguntas</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+</head>
+<body>
+
+<div class="div-volver">
+    <a href="/" class="bottonA">
+        Volver
+    </a>
+</div>
+
+<div class="container">
+    <h1>Modificar pregunta</h1>
+    <div class="table-responsive" style="width: auto">
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pregunta</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#preguntas}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{pregunta}}</td>
+                    <td><a href="/modificarPreguntaEditor/modificar/id={{id}}">Modificar</a></td>
+                </tr>
+            {{/preguntas}}
+            </tbody>
+        </table>
+    </div >
+</div>
+
+</body>
+</html>

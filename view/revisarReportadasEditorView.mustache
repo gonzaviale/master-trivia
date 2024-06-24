@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Preguntas reportadas</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+</head>
+<body>
+
+<div class="div-volver">
+    <a href="/" class="bottonA">
+        Volver
+    </a>
+</div>
+
+<div class="container">
+    <h1>Preguntas Reportadas</h1>
+    <div class="table-responsive" style="width: auto">
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Pregunta</th>
+                <th>Jugador</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#reportadas}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td style="width: 100px">{{id_pregunta}}</td>
+                    <td style="width: 100px">{{id_jugador}}</td>
+                    <td><a href="/revisarReportadasEditor/verReportada/id={{id_pregunta}}">Ver</a></td>
+
+                </tr>
+            {{/reportadas}}
+            </tbody>
+        </table>
+    </div >
+</div>
+
+</body>
+</html>
+
+<style>
+    @media (min-width: 650px) {
+        .container{
+            width: 50%;
+        }
+    }
+</style>

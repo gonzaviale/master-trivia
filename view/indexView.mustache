@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+</head>
+<body>
+<div class="boxplay">
+    <h1>Bienvenido {{usuario}}<br> Tu mejor puntaje es {{puntaje}}</h1>
+    <a class="bottonA" href="/partida/comenzarPartida">Jugar Partida</a>
+    <a class="bottonA" href="/ranking/get">Ranking</a>
+    <a class="bottonA" href="/sugerirPregunta/get">Sugerir pregunta</a>
+    <a class="bottonA" href="/perfil/get/usuario={{usuario}}">Mi perfil</a>
+    {{#mensaje}}
+        <div>{{mensaje}}</div>
+    {{/mensaje}}
+</div>
+</body>
+</html>

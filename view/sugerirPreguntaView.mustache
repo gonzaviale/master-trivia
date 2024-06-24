@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sugerir pregunta</title>
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+</head>
+<body>
+<div class="container">
+    <h1>Agregar pregunta</h1>
+
+    <form action="/sugerirPregunta/agregarPreguntaSugerida" method="post">
+        <div class="form-group">
+            <label for="categoria" class="labelinput">Categoria</label>
+            <select name="categoria" id="categoria" class="inputsAreaRegister" required>
+                <option value="" disabled selected>Selecciona una opcion</option>
+                <option value="1" name="1">Geografia</option>
+                <option value="2" name="2">Historia</option>
+                <option value="3" name="3">Ciencia</option>
+                <option value="4" name="4">Deportes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="pregunta-sugerida" class="labelinput">Pregunta</label>
+            <input type="text" id="pregunta-sugerida" name="pregunta_sugerida" value="¿?" class="inputsAreaRegister" required>
+        </div>
+
+        <div class="form-group">
+            <label for="respuesta-correcta" class="labelinput">Respuesta Correcta</label>
+            <input type="text" id="respuesta-correcta" name="respuesta_correcta" class="inputsAreaRegister" required>
+        </div>
+
+        <div class="form-group">
+            <label for="incorrecta_1" class="labelinput">Respuesta Incorrecta</label>
+            <input class="inputsAreaRegister" id="incorrecta_1" type="text" name="incorrecta_1" required>
+        </div>
+
+        <div class="form-group">
+            <label for="incorrecta_2" class="labelinput">Respuesta Incorrecta</label>
+            <input class="inputsAreaRegister" id="incorrecta_2" type="text" name="incorrecta_2" required>
+        </div>
+
+        <div class="form-group">
+            <label for="incorrecta_3" class="labelinput">Respuesta Incorrecta</label>
+            <input class="inputsAreaRegister" id="incorrecta_3" type="text" name="incorrecta_3" required>
+        </div>
+
+
+        <button type="submit" class="button-register">Enviar</button>
+    </form>
+
+    <div>
+        <a href="/" class="bottonA">
+            Volver
+        </a>
+    </div>
+
+    {{#error}}
+        <div class="error">{{error}}</div>
+    {{/error}}
+
+</div>
+</body>
+</html>

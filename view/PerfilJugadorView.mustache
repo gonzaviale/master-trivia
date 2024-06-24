@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+
+
+    <title>Perfil Usuario</title>
+</head>
+<body>
+{{#perfiles}}
+    <div class="profile-container">
+        <img src="/{{fotoPerfil}}" alt="Foto de perfil" class="profile-picture">
+        <div class="profile-name">{{nombreUsuario}}</div>
+        <div class="profile-score">Puntaje: {{puntajeAcumulado}}</div>
+        <div class="profile-score">Partidas jugadas: {{cantidadPartidas}}</div>
+        <div id="mapa-container">
+           
+            <div id="mapa" class="mapa-perfil"></div>
+        </div>
+        <div id="qr" class="w-20 h-20 d-flex justify-content-center align-items-center">
+            <img src="{{qr}}" alt="QR Code" />
+        </div>
+
+    </div>
+{{/perfiles}}
+
+{{{script}}}
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="/public/mapPerfil.js?v=1.0.1"></script>
+</html>

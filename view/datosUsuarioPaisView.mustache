@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios por País</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+</head>
+<body class="datos-body">
+<div class="container">
+
+    <div class="table-responsive">
+        <h2>Cantidad de Usuarios por País</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>País</th>
+                <th>Cantidad de Usuarios</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#datosUsuario}}
+                <tr>
+                    <td>{{pais}}</td>
+                    <td>{{cantidadUsuariosPorPais}}</td>
+                </tr>
+            {{/datosUsuario}}
+            </tbody>
+        </table>
+    </div>
+
+    <form action="/administrador/crearPDF?categoria=pais" method="post" id="pdfForm">
+        <input type="hidden" name="generatingPDF" value="true">
+        <button type="submit" id="imprimirPDF">Imprimir Datos</button>
+    </form>
+
+    <div class="button-container">
+        <p>Imprimir gráfico por:</p>
+        <div class="btn-group">
+            <a href="/administrador/crearGraficoPDF?range=dia&categoria=pais" class="btn">Día</a>
+            <a href="/administrador/crearGraficoPDF?range=mes&categoria=pais" class="btn">Mes</a>
+            <a href="/administrador/crearGraficoPDF?range=anio&categoria=pais" class="btn">Año</a>
+        </div>
+    </div>
+
+</div> <!-- Cierre del div.container -->
+
+</body>
+</html>

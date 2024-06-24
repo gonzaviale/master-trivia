@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Editor</title>
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+</head>
+<body>
+<div class="boxplay">
+    <h1>Bienvenido {{nombre}}</h1>
+    <a class="bottonA" href="/agregarPreguntaEditor/get">Agregar pregunta</a>
+    <a class="bottonA" href="/eliminarPreguntaEditor/get">Eliminar pregunta</a>
+    <a class="bottonA" href="/modificarPreguntaEditor/get">Modificar pregunta</a>
+    <a class="bottonA" href="/revisarSugeridasEditor/get">Revisar preguntas sugeridas</a>
+    <a class="bottonA" href="/revisarReportadasEditor/get">Revisar preguntas reportadas</a>
+
+
+    {{#mensaje}}
+        <div>{{mensaje}}</div>
+    {{/mensaje}}
+</div>
+</body>
+</html>

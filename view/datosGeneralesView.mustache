@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Generales</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+
+</head>
+<body class="datos-body">
+<div class="container">
+    <h1 class="mb-4">Datos Generales</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+        <thead>
+
+            <tr>
+                <th>Descripción</th>
+                <th>Valor</th>
+            </tr>
+            </thead>
+                <tbody>
+                {{#datosUsuario}}
+                <tr>
+                    <td>{{descripcion}}</td>
+                    <td>{{valor}}</td>
+                </tr>
+                {{/datosUsuario}}
+
+        </table>
+    </div>
+
+    <form action="/administrador/crearPDF?categoria=general" method="post" id="pdfForm">
+        <input type="hidden" name="generatingPDF" value="true">
+        <button type="submit" id="imprimirPDF">Imprimir Datos</button>
+    </form>
+
+
+    <div class="button-container ">
+        <p>Imprimir gráfico por:</p>
+        <div class="btn-group">
+            <a href="/administrador/crearGraficoPDF?range=dia&categoria=general" class="btn">Día</a>
+            <a href="/administrador/crearGraficoPDF?range=mes&categoria=general" class="btn">Mes</a>
+            <a href="/administrador/crearGraficoPDF?range=anio&categoria=general" class="btn">Año</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

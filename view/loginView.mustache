@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+</head>
+<body>
+<div class="login-container">
+    <h2 class="logintittle">Iniciar Sesión</h2>
+    <form class="formlog" action="/login/procesarLogin" method="POST">
+
+        <div class="containerlogininputs">
+            <label class="labelinput" for="username">Usuario</label>
+            <input class="inputslogin" type="text" id="username" name="username" required>
+        </div>
+
+       <div class="containerlogininputs">
+           <label class="labelinput" for="password">Contraseña</label>
+           <input class="inputslogin" type="password" id="password" name="password" required>
+       </div>
+
+        <div class="boxbuttonslogin">
+            <button class="buttonlogins" type="submit">Ingresar</button>
+        </div>
+
+    </form>
+
+    <a class="dada" href="/registro/get">
+        <button class="buttonlogins" id="buttonlogins">
+            Registrate
+        </button>
+    </a>
+
+    {{#error}}
+        <div class="error">{{error}}</div>
+    {{/error}}
+</div>
+</body>
+</html>

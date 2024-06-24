@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pregunta reportada</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css?v=1.0.1" rel="stylesheet">
+    <link rel="stylesheet" href="/public/estilos.css?v=2.0.1">
+</head>
+<body>
+
+<div class="div-volver">
+    <a href="/revisarReportadasEditor/get" class="bottonA">
+        Volver
+    </a>
+</div>
+<div class="container">
+    <h1>Pregunta Reportada {{id}}</h1>
+    <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>Id pregunta</th>
+                <th>Pregunta reportada</th>
+                <th>Categoria</th>
+                <th>Respuesta correcta</th>
+                <th>Incorrecta 1</th>
+                <th>Incorrecta 2</th>
+                <th>Incorrecta 3</th>
+                <th>Id jugador</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#reportada}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{pregunta_reportada}}</td>
+                    <td>{{categoria}}</td>
+                    <td>{{respuesta_correcta}}</td>
+                    <td>{{incorrecta_1}}</td>
+                    <td>{{incorrecta_2}}</td>
+                    <td>{{incorrecta_3}}</td>
+                    <td>{{id_jugador_que_reporto}}</td>
+                    <td><a href="/revisarReportadasEditor/aprobarReportada/id={{id}}">Aceptar y eliminar Pregunta</a></td>
+                    <td><a href="/revisarReportadasEditor/eliminarReportada/id={{id}}">Rechazar Reporte</a></td>
+
+
+                </tr>
+            {{/reportada}}
+            </tbody>
+        </table>
+    </div >
+</div>
+
+</body>
+</html>

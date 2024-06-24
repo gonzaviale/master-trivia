@@ -1,0 +1,94 @@
+<?php
+
+class RevisarSugeridasEditorModel
+{
+    private $database;
+
+    public function __construct($database)
+    {
+        $this->database = $database;
+    }
+
+    public function obtenerPreguntasSugeridasEditor(){
+        return $this->database->query("SELECT * FROM pregunta_sugerida");
+    }
+
+    public function aceptarSugerida($id){
+        //Agrego Pregunta
+        $pregunta = $this->buscarPreguntaPorIdSugerida($id);
+        $categoria_id = $this->buscarIdCategoriaPorIdSugerida($id);
+        $date = $this->obtenerFecha();
+        $this->database->execute("INSERT INTO pregunta(pregunta, respuestas_correctas, respuestas_incorrectas, total_respuestas, categoria_id, dificultad_id, fecha_creacion) VALUES 
+                                                    ('$pregunta', '5', '5', '10', '$categoria_id', '2', '$date')");
+
+        //Agrego rta correcta
+        $respuesta_correcta = $this->buscarCorrectaPorIdSugerida($id);
+        $id_pregunta = $this->buscarIdPorPregunta($pregunta);
+        $this->database->execute("INSERT INTO respuesta(respuesta, pregunta_id, correcta) VALUES 
+                                                    ('$respuesta_correcta', '$id_pregunta', '1')");
+
+        //Agrego las tres rtas incorrectas
+        $incorrecta_1 = $this->buscarIncorrecta1PorIdSugerida($id);
+        $this->database->execute("INSERT INTO respuesta(respuesta, pregunta_id, correcta) VALUES 
+                                                    ('$incorrecta_1', '$id_pregunta', '0')");
+
+        $incorrecta_2 = $this->buscarIncorrecta2PorIdSugerida($id);
+        $this->database->execute("INSERT INTO respuesta(respuesta, pregunta_id, correcta) VALUES 
+                                                    ('$incorrecta_2', '$id_pregunta', '0')");
+
+        $incorrecta_3 = $this->buscarIncorrecta3PorIdSugerida($id);
+        $this->database->execute("INSERT INTO respuesta(respuesta, pregunta_id, correcta) VALUES 
+                                                    ('$incorrecta_3', '$id_pregunta', '0')");
+
+        //Elimino de la tabla pregunta sugerida
+        $this->database->execute("DELETE FROM pregunta_sugerida WHERE id = $id");
+
+    }
+
+    public function rechazarSugerida($id){
+        $this->database->execute("DELETE FROM pregunta_sugerida WHERE id = $id");
+    }
+
+    private function buscarPreguntaPorIdSugerida($id){
+        return $this->database->uniqueQuery("SELECT pregunta FROM pregunta_sugerida WHERE id = $id", 'pregunta');
+    }
+
+    private function buscarIdCategoriaPorIdSugerida($id){
+        return $this->database->uniqueQuery("SELECT categoria_id FROM pregunta_sugerida WHERE id = $id", 'categoria_id');
+    }
+
+    private function buscarCorrectaPorIdSugerida($id)
+    {
+        return $this->database->uniqueQuery("SELECT respuesta_correcta FROM pregunta_sugerida WHERE id = $id", 'respuesta_correcta');
+
+    }
+
+    private function buscarIdPorPregunta($pregunta)
+    {
+        return $this->database->uniqueQuery("SELECT id FROM pregunta WHERE pregunta='$pregunta'", 'id');
+    }
+
+    private function buscarIncorrecta1PorIdSugerida($id)
+    {
+        return $this->database->uniqueQuery("SELECT incorrecta_1 FROM pregunta_sugerida WHERE id = $id", 'incorrecta_1');
+
+    }
+
+    private function buscarIncorrecta2PorIdSugerida($id)
+    {
+        return $this->database->uniqueQuery("SELECT incorrecta_2 FROM pregunta_sugerida WHERE id = $id", 'incorrecta_2');
+
+    }
+
+    private function buscarIncorrecta3PorIdSugerida($id)
+    {
+        return $this->database->uniqueQuery("SELECT incorrecta_3 FROM pregunta_sugerida WHERE id = $id", 'incorrecta_3');
+    }
+
+    private function obtenerFecha() {
+        // Establecer la zona horaria (UTC-3)
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        return date('Y-m-d');
+    }
+
+}
