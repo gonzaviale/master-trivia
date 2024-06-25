@@ -108,6 +108,14 @@ h1{
     justify-content: space-evenly;
 }
 
+.container-partida{
+    padding-top: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
 .contenedorReportarBoton{
     display: flex;
     align-items: center;
@@ -140,7 +148,7 @@ h1{
 
 #timer{
     text-align: center;
-    margin: 30px auto;
+    margin:auto;
     font-size: 3em;
     letter-spacing: 2px;
     color: #ffffff;
@@ -151,6 +159,10 @@ h1{
 
 .titlequestion{
     text-align: center;
+    width: 70%;
+    background-color: #0cbdd7;
+    color: #ffffff;
+    margin: 20px auto;
 }
 
 .questionbuttons{

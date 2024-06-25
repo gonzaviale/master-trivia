@@ -56,10 +56,10 @@ class RegistroModel
 
     private function agregarLogin($username,$password,$idUsuario)
     {
-
+        $passwordHash = md5($password);
         if ($idUsuario) {
             $this->database->execute(
-                "INSERT INTO login (username, password, id_usuario, id_rol,fecha_creacion) VALUES ('$username', '$password', '$idUsuario', '3',NOW())"
+                "INSERT INTO login (username, password, id_usuario, id_rol,fecha_creacion) VALUES ('$username', '$passwordHash', '$idUsuario', '3',NOW())"
             );
         } else {
 

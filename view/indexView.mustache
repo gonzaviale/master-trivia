@@ -10,7 +10,10 @@
 </head>
 <body>
 <div class="boxplay">
-    <h1>Bienvenido {{usuario}}<br> Tu mejor puntaje es {{puntaje}}</h1>
+    <h1>Bienvenido {{usuario}}</h1>
+    {{#puntaje}}
+        <h1>Tu mejor puntaje es {{puntaje}}</h1>
+    {{/puntaje}}
     <a class="bottonA" href="/partida/comenzarPartida">Jugar Partida</a>
     <a class="bottonA" href="/ranking/get">Ranking</a>
     <a class="bottonA" href="/sugerirPregunta/get">Sugerir pregunta</a>

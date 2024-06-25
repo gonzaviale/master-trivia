@@ -11,7 +11,8 @@ class LoginModel
 
     public function iniciarSesion($contrasenia, $nombreUsuario)
     {
-        return $this->database->query("SELECT * FROM login JOIN usuario ON login.id_usuario=usuario.id WHERE login.password='$contrasenia' AND
+        $passwordHash = md5($contrasenia);
+        return $this->database->query("SELECT * FROM login JOIN usuario ON login.id_usuario=usuario.id WHERE login.password='$passwordHash' AND
                                                                       login.username='$nombreUsuario' AND usuario.cuenta_validada='1' ");
 
     }

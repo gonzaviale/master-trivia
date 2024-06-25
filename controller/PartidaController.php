@@ -36,13 +36,15 @@ class PartidaController{
         $pregunta = $_SESSION['pregunta'] ?? $this->buscarPreguntaSinResponder();
         $respuestas = $this->buscarRespuestas($pregunta);
         $_SESSION['pregunta'] = $pregunta;
+        $categoriaStyle = $this->model->buscarColorPorCategoria($_SESSION['pregunta']['categoria_id']);
         // Desordenar el array $respuestas
         shuffle($respuestas);
         $data = [
             'pregunta' => $pregunta,
             'respuestas' => $respuestas
         ];
-        return $this->presenter->render("view/jugarPartida.mustache", ['pregunta' => $data['pregunta'], 'respuestas' => $data['respuestas']]);
+        return $this->presenter->render("view/jugarPartida.mustache", ['pregunta' => $data['pregunta'],
+            'respuestas' => $data['respuestas'], 'categoriaStyle' => $categoriaStyle]);
     }
 
     public function procesarRespuesta()

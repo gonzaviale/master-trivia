@@ -45,7 +45,7 @@ CREATE TABLE Jugador (
 CREATE TABLE Login (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20),
-    password VARCHAR(20),
+    password VARCHAR(32),
     id_rol INT NOT NULL,
     id_usuario INT NOT NULL,
     fecha_creacion DATE NOT NULL,
@@ -323,10 +323,10 @@ INSERT INTO Respuesta (respuesta, pregunta_id, correcta) VALUES
     ("admin@mastertrivia.com", "Don Jose", "2001", "Masculino", "Argentina", "admin", "nulo", "Merlo", 1);
 
     INSERT INTO Login (username, password, id_usuario, id_rol,fecha_creacion) VALUES
-    ("editor", "1111", 1, 2, NOW());
+    ("editor", "b59c67bf196a4758191e42f76670ceba", 1, 2, NOW());
 
     INSERT INTO Login (username, password, id_usuario, id_rol,fecha_creacion) VALUES
-    ("admin", "1111", 2, 1, NOW());
+    ("admin", "b59c67bf196a4758191e42f76670ceba", 2, 1, NOW());
 
 -- Insertar Jugador facil e intermedio
     INSERT INTO Usuario (email, nombre_completo, ano_nacimiento, sexo, pais, nombre_usuario, foto_perfil, ciudad, cuenta_validada) VALUES
@@ -336,10 +336,10 @@ INSERT INTO Respuesta (respuesta, pregunta_id, correcta) VALUES
     ("jugadorDificil@mastertrivia.com", "Deadpool", "2001", "Masculino", "Argentina", "deadpool", "public/img/deadpool.png", "Merlo", 1);
 
     INSERT INTO Login (username, password, id_rol, id_usuario, fecha_creacion) VALUES
-    ("spiderman", "1111", 3, 3, NOW());
+    ("spiderman", "b59c67bf196a4758191e42f76670ceba", 3, 3, NOW());
 
     INSERT INTO Login (username, password, id_rol, id_usuario, fecha_creacion) VALUES
-    ("deadpool", "1111", 3, 4, NOW());
+    ("deadpool", "b59c67bf196a4758191e42f76670ceba", 3, 4, NOW());
 
     INSERT INTO Jugador(respuestas_correctas, respuestas_incorrectas, total_respuestas, nivel_id, usuario_id) VALUES
     (1, 20, 21, 1, 3);

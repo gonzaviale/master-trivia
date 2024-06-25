@@ -16,10 +16,8 @@ use helper\MustachePresenter;
 use helper\Router;
 use helper\GraphicGenerator;
 use model\PartidaModel;
-use model\PreguntaModel;
 use model\RankingModel;
 use model\RegistroModel;
-use model\RespuestaModel;
 use model\UsuarioModel;
 
 include_once("controller/UsuarioController.php");
@@ -38,8 +36,6 @@ include_once("controller/RevisarReportadasEditorController.php");
 include_once("controller/AdministradorController.php");
 
 
-include_once("model/PreguntaModel.php");
-include_once("model/RespuestaModel.php");
 include_once("model/LoginModel.php");
 include_once("model/RegistroModel.php");
 include_once("model/PartidaModel.php");
@@ -170,15 +166,7 @@ class Configuration
         return new RegistroModel(self::getDatabase());
     }
 
-    public static function getPreguntaModel()
-    {
-        return new PreguntaModel(self::getDatabase());
-    }
 
-    public static function getRespuestaModel()
-    {
-        return new RespuestaModel(self::getDatabase());
-    }
 
     public static function getSugerirPreguntaModel()
     {

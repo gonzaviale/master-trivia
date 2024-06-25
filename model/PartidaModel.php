@@ -162,7 +162,17 @@ class PartidaModel
         {
             $this->database->execute("INSERT INTO reportada(id_pregunta, id_jugador) VALUES ('$idPregunta', '$idJugador')");
         }
+    }
+
+    public function buscarColorPorCategoria($categoriaId)
+    {
+        switch ($categoriaId){
+            case 1: return ".container-partida{ background-color: #007bff5e }";
+            case 2: return ".container-partida{ background-color: #ffd7005c }";
+            case 3: return ".container-partida{ background-color: #4caf5099 }";
+            case 4: return ".container-partida{ background-color: #f443365e }";
         }
+    }
 
     private function buscarRespuestaCorrecta($idPregunta)
     {

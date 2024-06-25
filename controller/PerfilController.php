@@ -28,14 +28,28 @@ class PerfilController
             $perfilDeUsuario = $this->model->mostrarPerfil($nombreUsuario);
             $data = [];
             foreach ($perfilDeUsuario as $perfil) {
-                $data[] = [
-                    'cantidadPartidas' => $perfil['partidasJugadas'],
-                    'fotoPerfil' => $perfil['foto_perfil'],
-                    'nombreUsuario' => $perfil['nombre_usuario'],
-                    'puntajeAcumulado' => $perfil['puntaje_acumulado'],
-                    'pais' => $perfil['pais'],
-                    'ciudad' => $perfil['ciudad']
-                ];
+                if(!isset($perfil['partidasJugadas']))
+                {
+                    $data[] = [
+                        'cantidadPartidas' => 0,
+                        'fotoPerfil' => $perfil['foto_perfil'],
+                        'nombreUsuario' => $perfil['nombre_usuario'],
+                        'puntajeAcumulado' => 0,
+                        'pais' => $perfil['pais'],
+                        'ciudad' => $perfil['ciudad']
+                    ];
+                } else
+                {
+                    $data[] = [
+                        'cantidadPartidas' => $perfil['partidasJugadas'],
+                        'fotoPerfil' => $perfil['foto_perfil'],
+                        'nombreUsuario' => $perfil['nombre_usuario'],
+                        'puntajeAcumulado' => $perfil['puntaje_acumulado'],
+                        'pais' => $perfil['pais'],
+                        'ciudad' => $perfil['ciudad']
+                    ];
+                }
+
             }
 
             $ciudad = $perfilDeUsuario[0]['ciudad'];

@@ -6,19 +6,22 @@
     <title>Pregunta y Respuestas</title>
 </head>
 <body>
+<div class="container-partida">
     <div id="timer">01:00</div>
     {{#pregunta}}
-    <h1 class="titlequestion">{{pregunta}}</h1>
-    <div class="boxquestions">
-        {{#respuestas}}
-        <a class="questionbuttons" href="/partida/procesarRespuesta/respuesta={{id}}" id="respuesta_{{id}}"> {{respuesta}} </a>
-        {{/respuestas}}
-    </div>
-    <br><br><br><br>
-    <div class="contenedorReportarBoton">
-        <a class="bottonA" href="/partida/reportarPregunta/idPregunta={{id}}">Reportar pregunta</a>
-    </div>
+        <h1 class="titlequestion">{{pregunta}}</h1>
+        <div class="boxquestions">
+            {{#respuestas}}
+                <a class="questionbuttons" href="/partida/procesarRespuesta/respuesta={{id}}" id="respuesta_{{id}}"> {{respuesta}} </a>
+            {{/respuestas}}
+        </div>
+        <br><br><br><br>
+        <div class="contenedorReportarBoton">
+            <a style="margin-bottom: 20px" class="bottonA" href="/partida/reportarPregunta/idPregunta={{id}}">Reportar pregunta</a>
+        </div>
     {{/pregunta}}
+</div>
     <script src="/public/timer.js?v=1.0.1"></script>
 </body>
 </html>
+<style>{{categoriaStyle}}</style>
