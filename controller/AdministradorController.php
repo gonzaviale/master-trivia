@@ -252,4 +252,39 @@ class AdministradorController
             $this->presenter->render("view/registroView.mustache");
         }
     }
+
+    public function crearGrafico()
+    {
+        if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
+            $range = filter_input(INPUT_GET, 'range', FILTER_SANITIZE_STRING) ?? 'anio';
+
+
+            $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : '';
+
+            if ($categoria == 'sexo') {
+                $data = $this->obtenerDatosDeUsuarioPorSexo($range);
+                $labels = array_column($data, 'sexo');
+                $values = array_column($data, 'cantidadUsuariosPorSexo');
+            } else if ($categoria == 'pais') {
+                $data = $this->obtenerDatosDeUsuarioPorPais($range);
+                $labels = array_column($data, 'pais');
+                $values = array_column($data, 'cantidadUsuariosPorPais');
+            } else if ($categoria == 'edad') {
+                $data = $this->obtenerDatosDeUsuarioPorGrupoDeEdad($range);
+                $labels = array_column($data, 'grupoEdad');
+                $values = array_column($data, 'cantidadUsuariosPorGrupoDeEdad');
+            } else {
+                $data = $this->obtenerDatosGenerales($range);
+                $labels = array_column($data, 'descripcion'); // Usar las descripciones como etiquetas
+                $values = array_column($data, 'valor');
+            }
+
+
+            $this->graphicGenerator->renderChartViewOnSite($labels, $values);
+
+
+        } else {
+            $this->presenter->render("view/registroView.mustache");
+        }
+    }
 }
