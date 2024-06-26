@@ -22,7 +22,22 @@ class EditorController
         }
 
         $preguntas = $this->model->obtenerPreguntasEditor();
+        foreach ($preguntas as $index => $pregunta)
+        {
+            $reportada = $this->model->obtenerReportada($pregunta['id']);
+            $preguntas[$index]['reportada'] = $reportada;
+        }
         $this->presenter->render("view/preguntasEditorView.mustache", ['preguntas' => $preguntas]);
+    }
+
+    public function eliminarReportada(){
+        session_start();
+        if($_SESSION['rol'] != "Editor"){
+            header("location: /");
+            exit();
+        }
+        $this->model->eliminarReporte($_GET['id']);
+        header("location: /editor/get");
     }
 
     public function modificarPregunta(){

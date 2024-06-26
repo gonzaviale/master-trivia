@@ -111,6 +111,15 @@ ORDER BY p.id");
         $this->database->execute("DELETE FROM pregunta_sugerida WHERE id = $id");
     }
 
+    public function obtenerReportada($idPregunta)
+    {
+        return $this->database->uniqueQuery("SELECT id FROM reportada WHERE id_pregunta = $idPregunta", "id");
+    }
+
+    public function eliminarReporte($id){
+        $this->database->execute("DELETE FROM reportada WHERE id = '$id'");
+    }
+
     private function buscarPreguntaPorIdSugerida($id){
         return $this->database->uniqueQuery("SELECT pregunta FROM pregunta_sugerida WHERE id = $id", 'pregunta');
     }

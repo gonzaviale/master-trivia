@@ -46,11 +46,17 @@ class RegistroController
         $nombreUsuario = $_POST['nombreUsuario'] ?? '';
 
         $directorio_destino = 'public/img/';
+        if(empty($_FILES['fotoPerfil']))
+        {
+            $error = "Todos los campos son obligatorios.";
+            return $this->presenter->render("view/registroView.mustache", ['error' => $error]);
+        }
+
         $nombre_archivo = $_FILES['fotoPerfil']['name'];
         $ruta_archivo_destino = $directorio_destino . $nombreUsuario . $nombre_archivo;
 
         if (empty($nombreCompleto) || empty($anioNacimiento) || empty($sexo) || empty($pais) || empty($email) || empty($contrasenia) || empty($repetirContrasenia) ||
-            empty($nombreUsuario)|| empty($ciudad)) {
+            empty($nombreUsuario)|| empty($ciudad) || empty($nombre_archivo)) {
             // Mostrar un mensaje de error
             $error = "Todos los campos son obligatorios.";
             return $this->presenter->render("view/registroView.mustache", ['error' => $error]);
@@ -103,7 +109,7 @@ class RegistroController
 
         if (!empty($usuario)) {
             $this->model->validarCuenta($token);
-            return $this->presenter->render("view/loginView.mustache");
+            return $this->presenter->render("view/verificacionExitosaView.mustache");
 
         } else {
             $error = "El token de validación no es válido.";

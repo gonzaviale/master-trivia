@@ -6,7 +6,6 @@ use controller\PerfilController;
 use controller\RankingController;
 use controller\SugerirPreguntaController;
 use controller\EditorController;
-use controller\RevisarReportadasEditorController;
 use helper\Database;
 use helper\MustachePresenter;
 use helper\Router;
@@ -24,7 +23,6 @@ include_once("controller/RankingController.php");
 include_once("controller/PerfilController.php");
 include_once("controller/SugerirPreguntaController.php");
 include_once("controller/EditorController.php");
-include_once("controller/RevisarReportadasEditorController.php");
 include_once("controller/AdministradorController.php");
 
 
@@ -35,7 +33,6 @@ include_once("model/RankingModel.php");
 include_once("model/UsuarioModel.php");
 include_once("model/SugerirPreguntaModel.php");
 include_once("model/EditorModel.php");
-include_once("model/RevisarReportadasEditorModel.php");
 include_once("model/AdministradorModel.php");
 
 
@@ -98,10 +95,6 @@ class Configuration
         return new EditorController(self::getPresenter(),self::getEditorModel());
     }
 
-    public static function getRevisarReportadasEditorController()
-    {
-        return new RevisarReportadasEditorController(self::getPresenter(),self::getRevisarReportadasEditorModel());
-    }
 
     // MODELS
     public static function getLoginModel()
@@ -146,10 +139,6 @@ class Configuration
         return new EditorModel(self::getDatabase());
     }
 
-    public static function getRevisarReportadasEditorModel()
-    {
-        return new RevisarReportadasEditorModel(self::getDatabase());
-    }
 
     // HELPERS
     public static function getDatabase()

@@ -6,12 +6,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
-
-
-    <title>Perfil Usuario</title>
+{{#perfiles}}
+    <title>Perfil {{nombreUsuario}}</title>
 </head>
 <body>
-{{#perfiles}}
+
     <div class="profile-container">
         <img src="/{{fotoPerfil}}" alt="Foto de perfil" class="profile-picture">
         <div class="profile-name">{{nombreUsuario}}</div>
