@@ -24,9 +24,6 @@ class AdministradorController
 
     public function get()
     {
-
-
-
         if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
             $this->presenter->render("view/adminView.mustache");
         } else {
@@ -53,10 +50,12 @@ class AdministradorController
                     'descripcion' => 'Cantidad de Partidas',
                     'valor' => $cantidadPartidas
                 ],
+
                 [
                     'descripcion' => 'Cantidad de Preguntas',
                     'valor' => $cantidadPreguntas
                 ]
+
             ];
 
             return $data;
@@ -116,10 +115,8 @@ class AdministradorController
             $data = [];
             foreach ($cantidadUsuariosPorGrupoDeEdad as $cantidad) {
                 $data[] = [
-
                     'cantidadUsuariosPorGrupoDeEdad' => $cantidad['cantidadUsuariosPorGrupoDeEdad'],
                     'grupoEdad' => $cantidad['grupoEdad'],
-
                 ];
             }
             return $data;
@@ -132,27 +129,68 @@ class AdministradorController
     {
         if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
             $data = $this->obtenerDatosDeUsuarioPorPais();
-            return $this->presenter->render("view/datosUsuarioPaisView.mustache", ['datosUsuario' => $data]);
+            $dataAnio = $this->obtenerDatosDeUsuarioPorPais('anio');
+            $dataMes = $this->obtenerDatosDeUsuarioPorPais('mes');
+            $dataDia = $this->obtenerDatosDeUsuarioPorPais('dia');
+            $graficoAnio = $this->crearGrafico($dataAnio, 'pais','anio');
+            $graficoMes = $this->crearGrafico($dataMes, 'pais','mes');
+            $graficoDia = $this->crearGrafico($dataDia, 'pais','dia');
+
+            return $this->presenter->render("view/datosUsuarioPaisView.mustache", [
+                'datosUsuario' => $data,
+                'graficoDia' => $graficoDia,
+                'graficoMes' => $graficoMes,
+                'graficoAnio' => $graficoAnio
+            ]);
         } else {
             return $this->presenter->render("view/registroView.mustache");
         }
     }
+
 
     public function mostrarDatosUsuarioPorSexo()
     {
         if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
             $data = $this->obtenerDatosDeUsuarioPorSexo();
-            return $this->presenter->render("view/datosUsuarioSexoView.mustache", ['datosUsuario' => $data]);
+            $dataAnio = $this->obtenerDatosDeUsuarioPorSexo('anio');
+            $dataMes = $this->obtenerDatosDeUsuarioPorSexo('mes');
+            $dataDia = $this->obtenerDatosDeUsuarioPorSexo('dia');
+
+            $graficoAnio = $this->crearGrafico($dataAnio, 'sexo','anio');
+            $graficoMes = $this->crearGrafico($dataMes, 'sexo','mes');
+            $graficoDia = $this->crearGrafico($dataDia, 'sexo','dia');
+
+            return $this->presenter->render("view/datosUsuarioSexoView.mustache", [
+                'datosUsuario' => $data,
+                'graficoAnio' => $graficoAnio,
+                'graficoMes' => $graficoMes,
+                'graficoDia' => $graficoDia,
+            ]);
         } else {
             return $this->presenter->render("view/registroView.mustache");
         }
     }
 
+
+
     public function mostrarDatosUsuarioPorGrupoDeEdad()
     {
         if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
             $data = $this->obtenerDatosDeUsuarioPorGrupoDeEdad();
-            return $this->presenter->render("view/datosUsuarioEdadView.mustache", ['datosUsuario' => $data]);
+            $dataAnio = $this->obtenerDatosDeUsuarioPorGrupoDeEdad('anio');
+            $dataMes = $this->obtenerDatosDeUsuarioPorGrupoDeEdad('mes');
+            $dataDia = $this->obtenerDatosDeUsuarioPorGrupoDeEdad('dia');
+
+            $graficoAnio = $this->crearGrafico($dataAnio, 'edad','anio');
+            $graficoMes = $this->crearGrafico($dataMes, 'edad','mes');
+            $graficoDia = $this->crearGrafico($dataDia, 'edad','dia');
+            return $this->presenter->render("view/datosUsuarioEdadView.mustache", [
+                'datosUsuario' => $data,
+                'graficoAnio' => $graficoAnio,
+                'graficoMes' => $graficoMes,
+                'graficoDia' => $graficoDia,
+            ]);
+
         } else {
             return $this->presenter->render("view/registroView.mustache");
         }
@@ -163,7 +201,20 @@ class AdministradorController
     {
         if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
             $data = $this->obtenerDatosGenerales();
-            return $this->presenter->render("view/datosGeneralesView.mustache", ['datosUsuario' => $data]);
+            $dataAnio = $this->obtenerDatosGenerales('anio');
+            $dataMes = $this->obtenerDatosGenerales('mes');
+            $dataDia = $this->obtenerDatosGenerales('dia');
+
+            $graficoAnio = $this->crearGrafico($dataAnio, 'general', 'anio');
+            $graficoMes = $this->crearGrafico($dataMes, 'general', 'mes');
+            $graficoDia = $this->crearGrafico($dataDia, 'general', 'dia');
+
+            return $this->presenter->render("view/datosGeneralesView.mustache", [
+                'datosUsuario' => $data,
+                'graficoAnio' => $graficoAnio,
+                'graficoMes' => $graficoMes,
+                'graficoDia' => $graficoDia,
+            ]);
         } else {
             return $this->presenter->render("view/registroView.mustache");
         }
@@ -182,19 +233,19 @@ class AdministradorController
             switch ($categoria) {
                 case 'pais':
                     $data = $this->obtenerDatosDeUsuarioPorPais();
-                    $template = 'view/datosUsuarioPaisView.mustache';
+                    $template = 'view/imprimirPDFView.mustache';
                     break;
                 case 'sexo':
                     $data = $this->obtenerDatosDeUsuarioPorSexo();
-                    $template = 'view/datosUsuarioSexoView.mustache';
+                    $template = 'view/imprimirPDFView.mustache';
                     break;
                 case 'edad':
                     $data = $this->obtenerDatosDeUsuarioPorGrupoDeEdad();
-                    $template = 'view/datosUsuarioEdadView.mustache';
+                    $template = 'view/imprimirPDFView.mustache';
                     break;
-                default:
+                case 'general':
                     $data = $this->obtenerDatosGenerales();
-                    $template = 'view/datosGeneralesView.mustache';
+                    $template = 'view/imprimirPDFView.mustache';
                     break;
             }
 
@@ -209,33 +260,34 @@ class AdministradorController
     }
 
 
-    public function crearGraficoPDF()
-    {
+
+        public function crearGrafico($data, $categoria, $rango)
+        {
         if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
-            $range = filter_input(INPUT_GET, 'range', FILTER_SANITIZE_STRING) ?? 'anio';
+            $labels = [];
+            $values = [];
 
-
-            $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : '';
-
-            if ($categoria == 'sexo') {
-                $data = $this->obtenerDatosDeUsuarioPorSexo($range);
-                $labels = array_column($data, 'sexo');
-                $values = array_column($data, 'cantidadUsuariosPorSexo');
-            } else if ($categoria == 'pais') {
-                $data = $this->obtenerDatosDeUsuarioPorPais($range);
-                $labels = array_column($data, 'pais');
-                $values = array_column($data, 'cantidadUsuariosPorPais');
-            } else if ($categoria == 'edad') {
-                $data = $this->obtenerDatosDeUsuarioPorGrupoDeEdad($range);
-                $labels = array_column($data, 'grupoEdad');
-                $values = array_column($data, 'cantidadUsuariosPorGrupoDeEdad');
-            } else {
-                $data = $this->obtenerDatosGenerales($range);
-                $labels = array_column($data, 'descripcion'); // Usar las descripciones como etiquetas
-                $values = array_column($data, 'valor');
+            switch ($categoria) {
+                case 'sexo':
+                    $labels = array_column($data, 'sexo');
+                    $values = array_column($data, 'cantidadUsuariosPorSexo');
+                    break;
+                case 'pais':
+                    $labels = array_column($data, 'pais');
+                    $values = array_column($data, 'cantidadUsuariosPorPais');
+                    break;
+                case 'edad':
+                    $labels = array_column($data, 'grupoEdad');
+                    $values = array_column($data, 'cantidadUsuariosPorGrupoDeEdad');
+                    break;
+                case 'general':
+                    $labels = array_column($data, 'descripcion');
+                    $values = array_column($data, 'valor');
+                    breaK;
             }
 
-            $fileName = 'chart_' . date('YmdHis') . '.png';
+            // Generar el gráfico y obtener su HTML
+            $fileName = 'chart_' . $categoria . '_' . $rango . '_' . date('YmdHis') . '.png';
             $filePath = 'public/img/' . $fileName;
 
             if (file_exists($filePath)) {
@@ -244,47 +296,22 @@ class AdministradorController
 
             $this->graphicGenerator->renderChartView($labels, $values, $filePath);
 
+
             $imageData = base64_encode(file_get_contents($filePath));
-            $html = '<img src="data:image/png;base64,' . $imageData . '" alt="Gráfico">';
-            $this->pdfCreator->create($html);
+            $imgSrc = 'data:image/png;base64,' . $imageData;
 
+
+            $html = '<img src="' . $imgSrc . '" alt="Gráfico ' . ucfirst($categoria) . ' ' . ucfirst($rango) . '">';
+
+            return $html;
         } else {
-            $this->presenter->render("view/registroView.mustache");
+
+            return '';
         }
     }
 
-    public function crearGrafico()
-    {
-        if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
-            $range = filter_input(INPUT_GET, 'range', FILTER_SANITIZE_STRING) ?? 'anio';
 
 
-            $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : '';
-
-            if ($categoria == 'sexo') {
-                $data = $this->obtenerDatosDeUsuarioPorSexo($range);
-                $labels = array_column($data, 'sexo');
-                $values = array_column($data, 'cantidadUsuariosPorSexo');
-            } else if ($categoria == 'pais') {
-                $data = $this->obtenerDatosDeUsuarioPorPais($range);
-                $labels = array_column($data, 'pais');
-                $values = array_column($data, 'cantidadUsuariosPorPais');
-            } else if ($categoria == 'edad') {
-                $data = $this->obtenerDatosDeUsuarioPorGrupoDeEdad($range);
-                $labels = array_column($data, 'grupoEdad');
-                $values = array_column($data, 'cantidadUsuariosPorGrupoDeEdad');
-            } else {
-                $data = $this->obtenerDatosGenerales($range);
-                $labels = array_column($data, 'descripcion'); // Usar las descripciones como etiquetas
-                $values = array_column($data, 'valor');
-            }
 
 
-            $this->graphicGenerator->renderChartViewOnSite($labels, $values);
-
-
-        } else {
-            $this->presenter->render("view/registroView.mustache");
-        }
-    }
 }
