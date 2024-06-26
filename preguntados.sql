@@ -330,10 +330,10 @@ INSERT INTO Respuesta (respuesta, pregunta_id, correcta) VALUES
 
 -- Insertar Jugador facil e intermedio
     INSERT INTO Usuario (email, nombre_completo, ano_nacimiento, sexo, pais, nombre_usuario, foto_perfil, ciudad, cuenta_validada) VALUES
-    ("jugadorFacil@mastertrivia.com", "Spiderman", "2001", "Masculino", "Argentina", "spiderman", "public/img/spiderman.png", "Merlo", 1);
+    ("jugadorFacil@mastertrivia.com", "Spiderman", "2001", "Femenino", "Perú", "spiderman", "public/img/spiderman.png", "Lima", 1);
 
     INSERT INTO Usuario (email, nombre_completo, ano_nacimiento, sexo, pais, nombre_usuario, foto_perfil, ciudad, cuenta_validada) VALUES
-    ("jugadorDificil@mastertrivia.com", "Deadpool", "2001", "Masculino", "Argentina", "deadpool", "public/img/deadpool.png", "Merlo", 1);
+    ("jugadorDificil@mastertrivia.com", "Deadpool", "1930", "Masculino", "Argentina", "deadpool", "public/img/deadpool.png", "Merlo", 1);
 
     INSERT INTO Login (username, password, id_rol, id_usuario, fecha_creacion) VALUES
     ("spiderman", "b59c67bf196a4758191e42f76670ceba", 3, 3, NOW());
