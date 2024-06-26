@@ -6,6 +6,8 @@ require_once 'vendor/autoload.php';
 use mitoteam\jpgraph\MtJpGraph;
 use Graph;
 use BarPlot;
+use PieGraph;
+use PiePlot;
 
 class GraphicGenerator {
 
@@ -64,6 +66,40 @@ class GraphicGenerator {
         return $filePath;
     }
 
+    public function renderPieChartView($labels, $values, $filePath)
+    {
+        // Cargar la librería de JpGraph necesaria para el tipo de gráfico (en este caso, pie)
+        MtJpGraph::load(['pie']);
+
+        // Crear el objeto de gráfico con dimensiones específicas
+        $graph = new PieGraph(750, 600);
+
+        // Configuraciones del título
+        $graph->title->Set('Datos Generales');
+        $graph->title->SetFont(FF_ARIAL, FS_BOLD, 16);
+
+        // Verificar si el arreglo de valores está vacío y ajustarlo si es necesario
+        if (empty($values)) {
+            $values = [0];
+            $labels = ['Sin datos'];
+        }
+
+        // Crear el gráfico de torta y agregarlo al gráfico principal
+        $piePlot = new PiePlot($values);
+        $piePlot->SetLegends($labels);
+        $piePlot->SetLabelType(PIE_VALUE_ABS); // Muestra los valores absolutos en las etiquetas
+        $piePlot->value->SetFont(FF_ARIAL, FS_BOLD, 12); // Configurar la fuente para los valores
+        $piePlot->value->SetColor('black'); // Color del texto de los valores
+        $piePlot->SetGuideLines(true, false); // Mostrar las guías hacia las etiquetas
+        $piePlot->SetGuideLinesAdjust(1.5); // Ajustar la longitud de las guías
+        $graph->Add($piePlot);
+
+        // Generar la imagen del gráfico y guardarla en el servidor
+        $graph->Stroke($filePath);
+
+        // Devolver la ruta al archivo de imagen generado
+        return $filePath;
+    }
 
 
 

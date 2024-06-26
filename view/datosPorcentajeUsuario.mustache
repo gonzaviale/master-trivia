@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios por edad</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/estilos.css?v=1.0.1">
+</head>
+<body class="datos-body">
+<div class="container">
+
+    <div class="table-responsive">
+        <h2>Porcentaje de preguntas correctas</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Grupo</th>
+                <th>Cantidad</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {{#datosUsuario}}
+                <tr>
+                    <td>{{nombre}}</td>
+                    <td>{{porcentaje}}</td>
+                </tr>
+            {{/datosUsuario}}
+            </tbody>
+        </table>
+    </div>
+
+    <form action="/administrador/crearPDF?categoria=porcentaje" method="post" id="pdfForm">
+        <input type="hidden" name="generatingPDF" value="true">
+        <button type="submit" id="imprimirPDF">Imprimir Datos</button>
+    </form>
+
+
+</div>
+</body>
+</html>

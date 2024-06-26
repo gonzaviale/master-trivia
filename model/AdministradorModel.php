@@ -16,6 +16,22 @@ class AdministradorModel
         return $this->database->uniqueQuery($sql, "cantidadJugadores");
     }
 
+    public function porcentajeJugador()
+    {
+        $sql=("SELECT
+                u.id AS usuario_id,
+                u.nombre_completo,
+                j.respuestas_correctas,
+                j.total_respuestas,
+                TRUNCATE(((j.respuestas_correctas / j.total_respuestas) * 100), 2) AS porcentaje_correctas
+                FROM
+                Usuario u
+                JOIN
+                Jugador j ON u.id = j.usuario_id;");
+        return $this->database->query($sql);
+    }
+
+
     public function cantidadDeJugadoresNuevos($range=null)
     {
         $condicion = $this->filtrarFecha($range);
@@ -120,7 +136,7 @@ class AdministradorModel
     {
         switch($range){
             case 'dia':
-                return "fecha_hora = CURDATE()";
+                return "DATE(fecha_hora) = CURDATE()";
             default:
                 return "fecha_hora>= DATE_SUB(CURDATE(),INTERVAL 1 MONTH)";
             case 'anio':
