@@ -10,31 +10,27 @@ class RevisarReportadasEditorModel
     }
 
     public function obtenerPreguntasReportadasEditor(){
-        return $this->database->query("SELECT * FROM reportada");
+        return $this->database->query("SELECT p.id AS id,
+       p.pregunta AS pregunta_reportada,
+       c.categoria AS categoria,
+       GROUP_CONCAT(CASE WHEN r.correcta = 1 THEN r.respuesta ELSE NULL END ORDER BY r.id ASC) AS respuesta_correcta,
+       GROUP_CONCAT(CASE WHEN r.correcta = 0 THEN r.respuesta ELSE NULL END ORDER BY r.id ASC) AS respuestas_incorrectas
+FROM reportada rep
+JOIN pregunta p ON rep.id_pregunta = p.id
+JOIN respuesta r ON p.id = r.pregunta_id
+JOIN categoria c ON p.categoria_id = c.id
+GROUP BY rep.id, p.id
+ORDER BY rep.id, p.id");
     }
 
-    public function obtenerDatosReportada($id){
-        return $this->database->query("SELECT rep.id_pregunta AS id, 
-       p.pregunta AS pregunta_reportada, 
-       c.categoria AS categoria, 
-       MAX(CASE WHEN r.correcta = 1 THEN r.respuesta END) AS respuesta_correcta,
-       MAX(CASE WHEN r.correcta = 0 AND r.id = r_correcta.id + 1 THEN r.respuesta END) AS incorrecta_1,
-       MAX(CASE WHEN r.correcta = 0 AND r.id = r_correcta.id + 2 THEN r.respuesta END) AS incorrecta_2,
-       MAX(CASE WHEN r.correcta = 0 AND r.id = r_correcta.id + 3 THEN r.respuesta END) AS incorrecta_3,
-       rep.id_jugador AS id_jugador_que_reporto FROM pregunta p INNER JOIN respuesta r ON p.id = r.pregunta_id 
-           INNER JOIN categoria c ON p.categoria_id = c.id 
-           INNER JOIN respuesta r_correcta ON p.id = r_correcta.pregunta_id AND r_correcta.correcta = 1 
-           INNER JOIN reportada rep ON p.id = rep.id_pregunta WHERE rep.id_pregunta = $id");
-    }
-
-    public function aprobarReportada($id){
+    public function aprobarReporte($id){
         $this->database->execute("DELETE FROM respuesta WHERE pregunta_id = $id");
         $this->database->execute("DELETE FROM reportada WHERE id_pregunta = $id");
         $this->database->execute("DELETE FROM pregunta_respondida WHERE pregunta_id = $id");
         $this->database->execute("DELETE FROM pregunta WHERE id = $id");
     }
 
-    public function eliminarReportada($id){
+    public function eliminarReporte($id){
         $this->database->execute("DELETE FROM reportada WHERE id_pregunta = $id");
     }
 }

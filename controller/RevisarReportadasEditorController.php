@@ -31,7 +31,7 @@ class RevisarReportadasEditorController
             exit();
         }
         $reportada = $this->model->obtenerDatosReportada($_GET['id']);
-        $this->presenter->render("view/accionesReportadaEditorView.mustache", ['reportada' => $reportada]);
+        $this->presenter->render("view/revisarReportadasEditorView.mustache", ['reportada' => $reportada]);
     }
 
     public function aprobarReportada(){
@@ -40,7 +40,7 @@ class RevisarReportadasEditorController
             header("location: /");
             exit();
         }
-        $this->model->aprobarReportada($_GET['id']);
+        $this->model->aprobarReporte($_GET['id']);
         if(isset($_SESSION['mensaje']))
             unset($_SESSION['mensaje']);
         $_SESSION['mensaje'] = "La pregunta reportada se elimino con exito";
@@ -53,10 +53,10 @@ class RevisarReportadasEditorController
             header("location: /");
             exit();
         }
-        $this->model->eliminarReportada($_GET['id']);
+        $this->model->eliminarReporte($_GET['id']);
         if(isset($_SESSION['mensaje']))
             unset($_SESSION['mensaje']);
-        $_SESSION['mensaje'] = "La pregunta reportada se ha rechazado con exito";
+        $_SESSION['mensaje'] = "El reporte se rechazo con exito";
         header("location: /");
     }
 }

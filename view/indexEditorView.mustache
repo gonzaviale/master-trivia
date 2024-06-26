@@ -11,16 +11,14 @@
 <body>
 <div class="boxplay">
     <h1>Bienvenido {{nombre}}</h1>
-    <a class="bottonA" href="/agregarPreguntaEditor/get">Agregar pregunta</a>
-    <a class="bottonA" href="/eliminarPreguntaEditor/get">Eliminar pregunta</a>
-    <a class="bottonA" href="/modificarPreguntaEditor/get">Modificar pregunta</a>
-    <a class="bottonA" href="/revisarSugeridasEditor/get">Revisar preguntas sugeridas</a>
-    <a class="bottonA" href="/revisarReportadasEditor/get">Revisar preguntas reportadas</a>
+    <a class="bottonA" href="/editor/accionAgregar">Agregar pregunta</a>
+    <a class="bottonA" href="/editor/revisarSugeridas">Revisar preguntas sugeridas</a>
+    <a class="bottonA" href="/editor/get">Ver preguntas</a>
 
 
     {{#mensaje}}
         <div>{{mensaje}}</div>
     {{/mensaje}}
-</div>
+
 </body>
 </html>

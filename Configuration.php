@@ -6,10 +6,6 @@ use controller\PerfilController;
 use controller\RankingController;
 use controller\SugerirPreguntaController;
 use controller\EditorController;
-use controller\AgregarPreguntaEditorController;
-use controller\ModificarPreguntaEditorController;
-use controller\EliminarPreguntaEditorController;
-use controller\RevisarSugeridasEditorController;
 use controller\RevisarReportadasEditorController;
 use helper\Database;
 use helper\MustachePresenter;
@@ -28,10 +24,6 @@ include_once("controller/RankingController.php");
 include_once("controller/PerfilController.php");
 include_once("controller/SugerirPreguntaController.php");
 include_once("controller/EditorController.php");
-include_once("controller/AgregarPreguntaEditorController.php");
-include_once("controller/ModificarPreguntaEditorController.php");
-include_once("controller/EliminarPreguntaEditorController.php");
-include_once("controller/RevisarSugeridasEditorController.php");
 include_once("controller/RevisarReportadasEditorController.php");
 include_once("controller/AdministradorController.php");
 
@@ -43,10 +35,6 @@ include_once("model/RankingModel.php");
 include_once("model/UsuarioModel.php");
 include_once("model/SugerirPreguntaModel.php");
 include_once("model/EditorModel.php");
-include_once("model/AgregarPreguntaEditorModel.php");
-include_once("model/ModificarPreguntaEditorModel.php");
-include_once("model/EliminarPreguntaEditorModel.php");
-include_once("model/RevisarSugeridasEditorModel.php");
 include_once("model/RevisarReportadasEditorModel.php");
 include_once("model/AdministradorModel.php");
 
@@ -110,26 +98,6 @@ class Configuration
         return new EditorController(self::getPresenter(),self::getEditorModel());
     }
 
-    public static function getAgregarPreguntaEditorController()
-    {
-        return new AgregarPreguntaEditorController(self::getPresenter(),self::getAgregarPreguntaEditorModel());
-    }
-
-    public static function getModificarPreguntaEditorController()
-    {
-        return new ModificarPreguntaEditorController(self::getPresenter(),self::getModificarPreguntaEditorModel());
-    }
-
-    public static function getEliminarPreguntaEditorController()
-    {
-        return new EliminarPreguntaEditorController(self::getPresenter(),self::getEliminarPreguntaEditorModel());
-    }
-
-    public static function getRevisarSugeridasEditorController()
-    {
-        return new RevisarSugeridasEditorController(self::getPresenter(),self::getRevisarSugeridasEditorModel());
-    }
-
     public static function getRevisarReportadasEditorController()
     {
         return new RevisarReportadasEditorController(self::getPresenter(),self::getRevisarReportadasEditorModel());
@@ -175,27 +143,7 @@ class Configuration
 
     public static function getEditorModel()
     {
-        return new SugerirPreguntaModel(self::getDatabase());
-    }
-
-    public static function getAgregarPreguntaEditorModel()
-    {
-        return new AgregarPreguntaEditorModel(self::getDatabase());
-    }
-
-    public static function getModificarPreguntaEditorModel()
-    {
-        return new ModificarPreguntaEditorModel(self::getDatabase());
-    }
-
-    public static function getEliminarPreguntaEditorModel()
-    {
-        return new EliminarPreguntaEditorModel(self::getDatabase());
-    }
-
-    public static function getRevisarSugeridasEditorModel()
-    {
-        return new RevisarSugeridasEditorModel(self::getDatabase());
+        return new EditorModel(self::getDatabase());
     }
 
     public static function getRevisarReportadasEditorModel()
