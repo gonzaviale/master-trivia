@@ -116,7 +116,8 @@ class PartidaModel
         }
     }
 
-    public function agregarIncorrectaAPregunta($idPregunta){
+    public function agregarIncorrectaAPregunta($idPregunta)
+    {
         $this->database->execute("UPDATE pregunta SET respuestas_incorrectas = respuestas_incorrectas + 1, total_respuestas = total_respuestas + 1 WHERE id = '$idPregunta'");
         $incorrectas = $this->database->uniqueQuery("SELECT respuestas_incorrectas FROM pregunta WHERE id = '$idPregunta'",'respuestas_incorrectas');
         $total = $this->database->uniqueQuery("SELECT total_respuestas FROM pregunta WHERE id = '$idPregunta'", 'total_respuestas');
@@ -164,6 +165,51 @@ class PartidaModel
         }
     }
 
+    private function fueRespondida($pregunta)
+    {
+        $idPregunta = $pregunta['id'];
+        $username = $_SESSION['username'];
+        return $this->buscarPreguntaRespondida($idPregunta, $username);
+    }
+
+    public function buscarPreguntaSinResponder()
+    {
+        $nivelJugador = $this->obtenerNivelJugador($_SESSION['username']);
+        $preguntasDelNivel = $this->obtenerPreguntasDelNivel($nivelJugador);
+        // Obtener la longitud del array $preguntas
+        $preguntasLength = count($preguntasDelNivel);
+
+        do {
+            $indiceAleatorio = array_rand($preguntasDelNivel);
+            // Decrementar la longitud solo si la pregunta fue respondida
+            if ($this->fueRespondida($preguntasDelNivel[$indiceAleatorio]) ) {
+                $preguntasLength--;
+            } else {
+                break; // Encontró una pregunta no respondida, salir del loop
+            }
+        } while ($preguntasLength > 0);
+
+        if ($preguntasLength == 0)
+        {
+            $username = $_SESSION["username"];
+            $this->reiniciarPreguntasRepondidas($username);
+        }
+
+        $preguntaSeleccionada = $preguntasDelNivel[$indiceAleatorio];
+        $idPregunta = $preguntaSeleccionada['id'];
+        $username = $_SESSION['username'];
+        $fechaHora = $this->obtenerFechaHora();
+        $this->agregarPreguntaRespondida($idPregunta, $username, $fechaHora);
+
+        return $preguntaSeleccionada;
+    }
+
+    private function obtenerFechaHora() {
+        // Establecer la zona horaria (UTC-3)
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        return date('Y-m-d H:i:s');
+    }
+
     public function buscarColorPorCategoria($categoriaId)
     {
         switch ($categoriaId){
@@ -171,6 +217,7 @@ class PartidaModel
             case 2: return ".container-partida{ background-color: #ffd7005c }";
             case 3: return ".container-partida{ background-color: #4caf5099 }";
             case 4: return ".container-partida{ background-color: #f443365e }";
+            default : return "";
         }
     }
 

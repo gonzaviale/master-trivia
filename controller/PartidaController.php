@@ -33,9 +33,9 @@ class PartidaController{
         {
             header("location:/");
         }
-        $pregunta = $_SESSION['pregunta'] ?? $this->buscarPreguntaSinResponder();
-        $respuestas = $this->buscarRespuestas($pregunta);
+        $pregunta = $_SESSION['pregunta'] ?? $this->model->buscarPreguntaSinResponder();
         $_SESSION['pregunta'] = $pregunta;
+        $respuestas = $this->model->buscarRespuestas($_SESSION['pregunta']['id']);
         $categoriaStyle = $this->model->buscarColorPorCategoria($_SESSION['pregunta']['categoria_id']);
         // Desordenar el array $respuestas
         shuffle($respuestas);
@@ -132,50 +132,6 @@ class PartidaController{
         $data = $this->model->finalizarPartida($idPregunta, $_SESSION['username']);
         return $this->presenter->render("view/partidaFinalizada.mustache", ['respuestaCorrectaFinal' => $data['respuestaCorrectaFinal'],
             'puntajeFinal' => $data['puntajeFinal']]);
-    }
-
-    private function fueRespondida($pregunta)
-    {
-        $idPregunta = $pregunta['id'];
-        $username = $_SESSION['username'];
-        return $this->model->buscarPreguntaRespondida($idPregunta, $username);
-    }
-
-    private function buscarPreguntaSinResponder()
-    {
-        $nivelJugador = $this->model->obtenerNivelJugador($_SESSION['username']);
-        $preguntasDelNivel = $this->model->obtenerPreguntasDelNivel($nivelJugador);
-        // Obtener la longitud del array $preguntas
-        $preguntasLength = count($preguntasDelNivel);
-
-        do {
-            $indiceAleatorio = array_rand($preguntasDelNivel);
-            // Decrementar la longitud solo si la pregunta fue respondida
-            if ($this->fueRespondida($preguntasDelNivel[$indiceAleatorio]) ) {
-                $preguntasLength--;
-            } else {
-                break; // Encontró una pregunta no respondida, salir del loop
-            }
-        } while ($preguntasLength > 0);
-
-        if ($preguntasLength == 0)
-        {
-            $username = $_SESSION["username"];
-            $this->model->reiniciarPreguntasRepondidas($username);
-        }
-
-        $preguntaSeleccionada = $preguntasDelNivel[$indiceAleatorio];
-        $idPregunta = $preguntaSeleccionada['id'];
-        $username = $_SESSION['username'];
-        $fechaHora = $this->obtenerFechaHora();
-        $this->model->agregarPreguntaRespondida($idPregunta, $username, $fechaHora);
-
-        return $preguntaSeleccionada;
-    }
-
-    private function buscarRespuestas($pregunta)
-    {
-        return $this->model->buscarRespuestas($pregunta['id']);
     }
 
     private function obtenerFechaHora() {
