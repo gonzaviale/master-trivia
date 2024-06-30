@@ -34,18 +34,25 @@
         <input type="hidden" name="generatingPDF" value="true">
         <button type="submit" id="imprimirPDF">Imprimir Datos</button>
     </form>
-    <div>
-        <h3>Gráfico Día:</h3>
-        {{{graficoMes}}}
-    </div>
-    <div>
-        <h3>Gráfico Mes :</h3>
-        {{{graficoDia}}}
-    </div>
-    <div>
-        <h3>Gráfico Año:</h3>
-        {{{graficoAnio}}}
-    </div>
+    {{#graficoDia}}
+        <div>
+            <h3>Gráfico Día:</h3>
+            {{{graficoDia}}}
+        </div>
+    {{/graficoDia}}
+    {{#graficoMes}}
+        <div>
+            <h3>Gráfico Mes :</h3>
+            {{{graficoMes}}}
+        </div>
+    {{/graficoMes}}
+    {{#graficoAnio}}
+        <div>
+            <h3>Gráfico Año:</h3>
+            {{{graficoAnio}}}
+        </div>
+    {{/graficoAnio}}
+
 </div> <!-- Cierre del div.container -->
 
 </body>

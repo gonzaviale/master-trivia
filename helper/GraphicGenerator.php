@@ -50,7 +50,7 @@ class GraphicGenerator {
         }
 
         // Configurar la escala automática para el eje y
-        $graph->yaxis->scale->SetAutoMin(0.5);
+        $graph->yaxis->scale->SetAutoMin(0);
         $graph->yaxis->scale->SetAutoMax($maxValue);
 
         // Crear el gráfico de barras y agregarlo al gráfico principal
@@ -87,7 +87,7 @@ class GraphicGenerator {
         // Crear el gráfico de torta y agregarlo al gráfico principal
         $piePlot = new PiePlot($values);
         $piePlot->SetLegends($labels);
-        $piePlot->SetLabelType(PIE_VALUE_ABS); // Muestra los valores absolutos en las etiquetas
+        //$piePlot->SetLabelType(PIE_VALUE_ABS); // Muestra los valores absolutos en las etiquetas
         $piePlot->value->SetFont(FF_ARIAL, FS_BOLD, 12); // Configurar la fuente para los valores
         $piePlot->value->SetColor('black'); // Color del texto de los valores
         $piePlot->SetGuideLines(true, false); // Mostrar las guías hacia las etiquetas

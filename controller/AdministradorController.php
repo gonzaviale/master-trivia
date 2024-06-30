@@ -68,7 +68,7 @@ class AdministradorController
     {
 
         if (isset($_SESSION['username']) && $_SESSION['rol'] == 'Administrador') {
-            $cantidadUsuariosPorSexo = $this->model->cantidadDeUsuariosPorSexo();
+            $cantidadUsuariosPorSexo = $this->model->cantidadDeUsuariosPorSexo($range);
 
             $data = [];
             foreach ($cantidadUsuariosPorSexo as $cantidad) {
@@ -187,9 +187,9 @@ class AdministradorController
             $dataMes = $this->obtenerDatosDeUsuarioPorSexo('mes');
             $dataDia = $this->obtenerDatosDeUsuarioPorSexo('dia');
 
-            $graficoAnio = $this->crearGraficoTorta($dataAnio, 'sexo','anio');
-            $graficoMes = $this->crearGraficoTorta($dataMes, 'sexo','mes');
-            $graficoDia = $this->crearGraficoTorta($dataDia, 'sexo','dia');
+            $graficoAnio = $dataAnio ? $this->crearGraficoTorta($dataAnio, 'sexo','anio') : "";
+            $graficoMes = $dataMes ? $this->crearGraficoTorta($dataMes, 'sexo','mes') : "";
+            $graficoDia = $dataDia ? $this->crearGraficoTorta($dataDia, 'sexo','dia') : "";
 
             return $this->presenter->render("view/datosUsuarioSexoView.mustache", [
                 'datosUsuario' => $data,
