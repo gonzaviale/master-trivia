@@ -27,13 +27,20 @@ class MustachePresenter
 
     public function generateHtml($contentFile, $data = array())
     {
-        if (isset($_SESSION['username'])) {
-            $contentAsString = file_get_contents($this->partialsPathLoader . '/headerLogeado.mustache');
+        $isImprimirPDFView = basename($contentFile) === 'imprimirPDFView.mustache';
+
+        if (!$isImprimirPDFView) {
+            if (isset($_SESSION['username'])) {
+                $contentAsString = file_get_contents($this->partialsPathLoader . '/headerLogeado.mustache');
+            } else {
+                $contentAsString = file_get_contents($this->partialsPathLoader . '/header.mustache');
+            }
             $contentAsString .= file_get_contents($contentFile);
         } else {
-            $contentAsString = file_get_contents($this->partialsPathLoader . '/header.mustache');
-            $contentAsString .= file_get_contents($contentFile);
+            $contentAsString = file_get_contents($contentFile);
         }
+
         return $this->mustache->render($contentAsString, $data);
+
     }
 }
